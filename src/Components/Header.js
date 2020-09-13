@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, Slide } from "@material-ui/core";
+import { Typography, Slide } from "@material-ui/core";
 
 const Header = () => {
   return (
