@@ -6,14 +6,19 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import thunk from "redux-thunk";
-import mainReducer from './reducers/main';
+import mainReducer from "./reducers/main";
+import { ThemeProvider } from '@material-ui/core';
+import theme from './Theme/Theme';
+
 
 const store = createStore(mainReducer);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

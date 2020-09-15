@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, GridList, GridListTile } from "@material-ui/core";
 import MainMenuBox from "./MainMenuBox";
 
 const MainNav = () => {
+ 
   const features = [
     { title: "My Logs", link: "/logs" },
     { title: "Explore", link: "/explore" },
   ];
 
   const menuBoxStyles = {
-    border: '3px solid blue',
     padding: '2rem',
-    width: `${100 / features.length}%`
+    width: `${100 / features.length}%`,
+    borderRadius: '2rem'
   }
 
   return (

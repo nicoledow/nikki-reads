@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ReadingLogContainer from "./Containers/ReadingLogContainer";
 import MainMenu from "./Components/MainMenu";
 import Header from "./Components/Header";
+import ExplorePage from './Containers/ExplorePage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <MainMenu />
         <Switch>
           <Route exact path="/logs" component={ReadingLogContainer} />
+          <Route exact path="/explore" component={ExplorePage}/>
         </Switch>
       </Router>
     </div>
