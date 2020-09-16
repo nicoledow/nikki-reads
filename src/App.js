@@ -6,6 +6,7 @@ import ReadingLogContainer from "./Containers/ReadingLogContainer";
 import MainMenu from "./Components/MainMenu";
 import Header from "./Components/Header";
 import ExplorePage from './Containers/ExplorePage';
+import ListDisplayContainer from './Containers/ListDisplayContainer';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/logs" component={ReadingLogContainer} />
           <Route exact path="/explore" component={ExplorePage}/>
+          <Route exact path="/lists/:listName" component={ListDisplayContainer}/>
         </Switch>
       </Router>
     </div>
