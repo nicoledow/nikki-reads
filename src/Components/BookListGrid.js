@@ -3,6 +3,7 @@ import { GridList, GridListTile, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const BookListGrid = (props) => {
+  console.log(props)
   const showList = (event) => {
     console.log(props.lists);
     const listTitle = event.target.id;
@@ -15,7 +16,7 @@ const BookListGrid = (props) => {
         return (
           <GridListTile>
             <button>
-              <Link to={`/lists/${list.list_name}`}>{list.display_name}</Link>
+              <Link to={`/lists/${list.list_name_encoded}`}>{list.display_name}</Link>
             </button>
           </GridListTile>
         );
