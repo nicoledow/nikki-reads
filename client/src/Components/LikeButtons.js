@@ -4,12 +4,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const LikeButtons = props => {
+    const book = props.book;
 
     const likeBook = likesBook => {
-        console.log(likesBook);
-        //if (likesBook) {
-            //fetch req to back end to save this book
-        //}
+        console.log('props', props);
+        if (likesBook) {
+            const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/likedBooks`;
+            const bookData = {
+                buyURL: book.amazon_product_url,
+                author: book.author,
+                imageUrl: book.book_image,
+                bookURI: book.book_uri
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(bookData)
+            })
+            .then(resp => resp.json())
+            .then(data => console.log('data', data))
+            .catch(err => console.log('error', err));
+        }
     };
 
     return (

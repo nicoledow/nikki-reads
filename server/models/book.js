@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const likedBookSchema = new Schema({
+const bookSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -18,7 +18,18 @@ const likedBookSchema = new Schema({
     },
     rating: {
         type: Number
+    },
+    buyURL: {
+        type: String
+    },
+    imageUrl: {
+        type: String,
+        required: true
+    },
+    nytBookURI: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = likedBookSchema;
+module.exports = bookSchema;
