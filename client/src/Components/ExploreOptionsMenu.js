@@ -12,7 +12,9 @@ const ExploreOptionsMenu = () => {
     const fetchNYTLists = () => {
         const url = `${nytBaseUrl}/lists/names.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`;
         fetch(url)
-        .then(resp => resp.json())
+        .then(resp => {
+            return resp.json()
+        })
         .then(data => {
             const lists = data.results;
             setLists(lists)

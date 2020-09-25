@@ -27,6 +27,6 @@ function App() {
   );
 }
 
-library.add(faCoffee, ThumbDown);
+// library.add(faCoffee, ThumbDown);
 
 export default App;
