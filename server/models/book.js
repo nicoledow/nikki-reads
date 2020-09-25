@@ -6,11 +6,14 @@ const bookSchema = new Schema({
         type: String,
         required: true
     },
-    authorId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: 'Author'
+    author: {
+        type: String
     },
+    // author: {
+    //     type: Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'Author'
+    // },
     read: {
         type: Boolean,
         required: true,
@@ -29,7 +32,8 @@ const bookSchema = new Schema({
     nytBookURI: {
         type: String,
         required: true
-    }
+    },
+    tags: [{type: String}]
 });
 
-module.exports = bookSchema;
+module.exports = mongoose.model('Book', bookSchema);
