@@ -1,6 +1,6 @@
 const Book = require('../models/book');
 
-exports.createBook = (req, res, next) => {
+exports.addBook = (req, res, next) => {
     // const author = Author.findByID()
     const book = new Book({
         buyURL: req.body.buyURL,
@@ -11,9 +11,10 @@ exports.createBook = (req, res, next) => {
 
     book.save()
     .then(result => {
+        // debugger;
         res.status(201).json({
             message: 'Book saved.',
-            booK: book._id
+            book: book._id
         });
     })
 };
