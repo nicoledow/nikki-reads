@@ -16,7 +16,8 @@ const LikeButtons = props => {
                 buyURL: book.amazon_product_url,
                 author: book.author,
                 imageUrl: book.book_image,
-                bookURI: book.book_uri
+                bookURI: book.book_uri,
+                title: book.title
             };
 
             fetch(url, {

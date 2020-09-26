@@ -11,13 +11,7 @@ const apiPort = 8080;
 const clientDomain = process.env.CLIENT_DOMAIN
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
-app.use((req, res, next) => {
-    console.log('client domain', clientDomain);
-    res.setHeader('Access-Control-Allow-Origin', clientDomain);
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    res.setHeader('Access-Controll-Allow-Headers', 'Content-Type, Authorization');
-});
+app.use(cors());
 
 
 app.use(bodyParser.json())
