@@ -2,19 +2,26 @@ import React from "react";
 import {
   GridList,
   GridListTile,
-  Typography,
   makeStyles,
   withWidth,
-  isWidthUp,
+  isWidthUp
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Theme from '../Theme/Theme';
 
 function BookListGrid(props) {
   const useStyles = makeStyles({
     cardStyle: {
       border: "1px solid #20c4cc",
-      width: window.width / calculateCols()
+      width: window.width / calculateCols() * 0.7,
+      margin: '1rem',
     },
+    linkStyle: {
+      textDecoration: 'none',
+      color: Theme.palette.secondary.main,
+      fontFamily: Theme.typography.h6,
+      marginTop: '3rem',
+    }
   });
   const classes = useStyles();
 
@@ -38,12 +45,10 @@ function BookListGrid(props) {
     <GridList cols={cols}>
       {props.lists.map((list) => {
         return (
-          <GridListTile className={classes.cardStyle}>
-            <button>
-              <Link to={`/lists/${list.list_name_encoded}`}>
+          <GridListTile padding="3" className={classes.cardStyle}>
+              <Link to={`/lists/${list.list_name_encoded}`} className={classes.linkStyle}>
                 {list.display_name}
               </Link>
-            </button>
           </GridListTile>
         );
       })}
