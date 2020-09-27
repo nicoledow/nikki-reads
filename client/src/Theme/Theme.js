@@ -32,6 +32,12 @@ const theme = createMuiTheme({
       h6: {
           fontFamily: 'Lato'
       }
+  },
+  overrides: {
+    MuiButton: {
+      color: '#fffafb',
+      fontFamily: 'Impact'
+    }
   }
 });
 

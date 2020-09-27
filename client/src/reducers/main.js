@@ -1,8 +1,14 @@
-const mainReducer = (state = {}, action) => {
-    switch(action.type) {
-        default:
-            return state;
-    }
-}
+const mainReducer = (state = {
+    isLoggedIn: false,
+  }, action) => {
+  switch (action.type) {
+    case "LOG_IN_USER":
+      return { ...state, isLoggedIn: true };
+    case "LOG_OUT_USER":
+      return { ...state, isLoggedIn: false };
+    default:
+      return state;
+  }
+};
 
 export default mainReducer;

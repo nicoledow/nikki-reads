@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Slide } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import theme from "../Theme/Theme";
 
 export default function MainMenuBox(props) {
   const styles = {
