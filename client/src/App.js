@@ -8,6 +8,7 @@ import Header from "./Components/Header";
 import ExplorePage from './Containers/ExplorePage';
 import ListDisplayContainer from './Containers/ListDisplayContainer';
 import LoginForm from './Components/LoginForm';
+import SignupForm from './Components/SignupForm';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { ThumbDown } from "@material-ui/icons";
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/explore" component={ExplorePage}/>
           <Route exact path="/lists/:listName" component={ListDisplayContainer}/>
           <Route exact path="/login" component={LoginForm}/>
+          <Route exact path="/signup" component={SignupForm}/>
         </Switch>
       </Router>
     </div>
