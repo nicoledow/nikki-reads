@@ -21,4 +21,7 @@ db.on('error', () => console.log('Mongo DB connection error.'));
 const bookRoutes = require('./routes/books');
 app.use(bookRoutes);
 
+const userRoutes = require('./routes/users');
+app.use(userRoutes);
+
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}.`));
