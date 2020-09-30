@@ -3,16 +3,19 @@ import { createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#7de2d1", //middle blue green
+      main: "#726da8" //dark blue gray
     },
     secondary: {
-      main: "#339989", //persian green
+      main: "#7d8cc4" //glaucos - medium purplish-blue
+    },
+    tertiary: {
+      main: '#a0d2db' //light blue
     },
     error: {
-      main: "#64e9ee", //electric blue
+      main: "#bee7e8", //bright powder blue
     },
     info: {
-      main: "#131515", //eerie black
+      main: "#594157", //eggplant
     },
     black: {
       main: "#2b2c28", //jet
