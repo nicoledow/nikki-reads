@@ -1,35 +1,20 @@
 import React from "react";
-import {
-  makeStyles,
-  Button,
-  Grid
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Grid, Container } from "@material-ui/core";
 import Theme from "../Theme/Theme";
+import ListTile from '../Components/ListTile';
 
 function BookListGrid(props) {
-  const useStyles = makeStyles({
-    cardStyle: {
-      border: "1px solid #20c4cc",
-    },
-    linkStyle: {
-      textDecoration: "none",
-      color: Theme.palette.secondary.main,
-      fontFamily: Theme.typography.h6,
-    },
-  });
-  const classes = useStyles();
 
-  return(
-    <Grid container spacing={2}>
-      {props.lists.map((list) => {
-        return (
-          <Grid item xs={1} sm={3} md={4} lg={5} className={classes.cardStyle}>
-            {list.list_name}
-          </Grid>
-        )
-      })}
-    </Grid>
-  )
+  return (
+    <Container>
+      <Grid container spacing={5}>
+        {props.lists.map((list) => {
+          return (
+            <ListTile list={list}/>
+          );
+        })}
+      </Grid>
+    </Container>
+  );
 }
 export default BookListGrid;
