@@ -42,15 +42,13 @@ const theme = createMuiTheme({
   buttons: {
     tile: {
       backgroundColor: '#fff',
-      border: '0.2rem solid black',
-      borderRadius: '2rem',
+      border: '0.2rem solid grey',
+      borderRadius: '1.5rem',
       fontWeight: 300,
-      color: '#339989',
+      color: '#594157',
       textAlign: 'center',
       height: '2rem',
-      hover: {
-        border: '1px solid white'
-      }
+      width: '75%'
     }
   }
 });

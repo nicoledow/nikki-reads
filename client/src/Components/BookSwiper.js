@@ -3,7 +3,6 @@ import { Typography } from "@material-ui/core";
 import LikeButtons from './LikeButtons';
 
 const BookSwiper = (props) => {
-  console.log(props);
   return (
     <div>
       <img
