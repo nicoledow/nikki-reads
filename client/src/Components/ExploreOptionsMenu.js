@@ -22,13 +22,14 @@ const ExploreOptionsMenu = () => {
       .catch((err) => console.log("err", err));
   };
 
-  const openNYTLists = () => {
+  const openNYTLists = event => {
+    event.target.parentElement.removeChild(event.target);
     fetchNYTLists();
   };
 
   return (
     <div>
-      <button onClick={openNYTLists}>New York Times Lists</button>
+      <button onClick={e => openNYTLists(e)}>New York Times Lists</button>
       {listsShouldDisplay && lists.length > 0 ? (
         <BookListGrid lists={lists} />
       ) : (

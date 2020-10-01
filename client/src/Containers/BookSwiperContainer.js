@@ -4,41 +4,39 @@ import BookSwiper from '../Components/BookSwiper';
 
 const nytBaseUrl = process.env.REACT_APP_NYT_BOOKS_API_BASE;
 
-const ListDisplayContainer = props => {
-  let [books, getBooks] = useState([]);
-  let [currentBookIdx, updateCurrentBookIdx] = useState(0);
-  
-  const fetchBooksForList = () => {
-    const listName = window.location.href.split('/').pop();
+const BookSwiperContainer = props => {
+  let [books, setBooks] = useState(null);
 
-    //TODO: hide in backend so key isn't visible
-    fetch(nytBaseUrl + `/lists/current/${listName}.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`)
+  const setBooksForSwiping = books => {
+    setBooks(prevBooks => books);
+  };
+
+
+  const fetchNYTBooks = () => {
+    const listSlug = window.location.href.split('/').pop();
+    fetch(`${nytBaseUrl}/lists/current/${listSlug}?api-key=${process.env.REACT_APP_NYT_API_KEY}`)
     .then(resp => resp.json())
     .then(data => {
-      console.log('data', data);
-      getBooks(data.results.books);
-      console.log('books', books);
+      const books = data.results.books;
+      setBooksForSwiping(books);
     })
     .catch(err => {
-      console.log('err', err);
-      alert('We\'re sorry, your request cannot be processed at this time. Please try again later.');
+      alert('We\'re sorry, your request cannot be processed at this time.');
+      console.log('err bookswipercontainer', err);
     })
-  }
+  };
 
   useEffect(() => {
-    fetchBooksForList();
+    fetchNYTBooks();
   }, []);
 
   return (
     <div>
-      { 
-      books.length > 0 ?
-      <BookSwiper book={books[currentBookIdx]} />
-      :
-      <div/>
-    }
+      {
+        books && books.length > 0 ? <BookSwiper books={books}/> : <div/>
+      }
     </div>
   )
 };
 
-export default ListDisplayContainer;
+export default BookSwiperContainer;

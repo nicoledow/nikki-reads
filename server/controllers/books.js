@@ -27,9 +27,11 @@ exports.addBook = (req, res, next) => {
             error.statusCode(500);
             throw error;
         }
-        res.status(201).json({
+        const response = {
             message: 'Book saved.',
             book: { id: book._id.toString(), title: book.title, buyURL: book.buyURL, nytBookURI: book.nytBookURI, imageUrl: book.imageUrl }
-        });
+        }
+        console.log(response);
+        res.status(201).json(response)
     })
 };
