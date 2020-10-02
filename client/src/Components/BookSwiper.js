@@ -1,9 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { Typography, Container, makeStyles, Button } from "@material-ui/core";
+import {
+  Typography,
+  Container,
+  makeStyles,
+  Button,
+  Grid,
+} from "@material-ui/core";
 
 const BookSwiper = (props) => {
-  console.log('bookswiper props', props);
+  console.log("bookswiper props", props);
   const books = props.books;
   let [currentBook, nextBook] = useState(books[0]);
   console.log("currentbook", currentBook);
@@ -50,23 +56,40 @@ const BookSwiper = (props) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <Grid container>
+      <Grid item xs={false} sm={4} md={7} className={classes.image}>
       <img
-        src={currentBook.book_image}
-        height={currentBook.book_image_height}
-        width={currentBook.book_image_width}
-      />
-      <Typography variant="h2">{currentBook.title}</Typography>
-      {currentBook.description}
-      <Container>
-        <Button color="primary" size="medium" variant="outlined" onClick={() => likeBook(false)} className={classes.btnStyle}>
-          Dislike
-        </Button>
-        <Button color="primary" size="medium" variant="outlined" onClick={() => likeBook(true)} className={classes.btnStyle}>
-          Like
-        </Button>
-      </Container>
-    </div>
+            src={currentBook.book_image}
+            height={currentBook.book_image_height}
+            width={currentBook.book_image_width}
+          />
+      </Grid>
+      <Grid item xs={12} sm={8} md={5}>
+        <div>
+        <Typography variant="h2">{currentBook.title}</Typography>
+        <Typography variant="p">{currentBook.description}</Typography>
+        <br/>
+        <Button
+            color="primary"
+            size="medium"
+            variant="outlined"
+            onClick={() => likeBook(false)}
+            className={classes.btnStyle}
+          >
+            Dislike
+          </Button>
+          <Button
+            color="primary"
+            size="medium"
+            variant="outlined"
+            onClick={() => likeBook(true)}
+            className={classes.btnStyle}
+          >
+            Like
+          </Button>
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 
