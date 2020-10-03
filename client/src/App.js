@@ -7,7 +7,6 @@ import Header from "./Components/Header";
 import ExplorePage from './Containers/ExplorePage';
 import BookSwiperContainer from './Containers/BookSwiperContainer';
 import LoginForm from './Components/LoginForm';
-import SignupForm from './Components/SignupForm';
 import Root from './Components/Root';
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
           <Route exact path="/explore" component={ExplorePage}/>
           <Route exact path="/lists/:listName" component={BookSwiperContainer}/>
           <Route exact path="/login" component={LoginForm}/>
-          <Route exact path="/signup" component={SignupForm}/>
+          <Route exact path="/signup" component={LoginForm}/>
         </Switch>
       </Router>
     </div>
