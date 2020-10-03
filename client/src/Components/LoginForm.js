@@ -1,43 +1,41 @@
 import React from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Grid, Container, Button } from "@material-ui/core";
 import { logInUser } from "../actions/logInUser";
+import FormTabs from './FormTabs';
 
 const LoginForm = (props) => {
+  let [selectedForm, selectForm] = useState("login");
 
-    const useStyles = makeStyles({
-        linkStyle: {
-            textDecoration: 'none'
-        },
-        textInputStyles: {
+  const useStyles = makeStyles({
+    gridItem: {
+    }
+  });
+  const classes = useStyles();
 
-        },
-        btnStyle: {
-
-        }
+  const switchForm = event => {
+    const selectedTab = event.target.parentElement.id;
+    selectForm(prevForm => {
+      return selectedTab;
     });
-    const classes = useStyles();
+  }
 
-  const handleFormSubmit = event => {
-    event.preventDefault();
-    console.log('login form submitted');
-  };
-  console.log('classes', classes);
-  return(
+  if (selectedForm === 'login') {
+    return (
       <div>
-          <form onSubmit={e => handleFormSubmit(e)}>
-              <input type="text" name="email" placeholder="Enter an email address"/><br/>
-              <input type="password" name="password" placeholder="Enter Password"/><br/>
-              <button type="submit">Log In</button>
-          </form>
-          <Link to="/signup" className={classes.linkStyle}>New? Sign up here.</Link>
+        <FormTabs/>
+        <p>login</p>
       </div>
-  )
-};
-
-const mapStateToProps = (state) => {
-  return { isLoggedIn: state.isLoggedIn };
+    )
+  } else {
+    return (
+      <div>
+        <FormTabs/>
+        <p>Sign up</p>
+      </div>
+    )
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -46,4 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(null, mapDispatchToProps)(LoginForm);

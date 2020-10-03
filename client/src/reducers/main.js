@@ -1,5 +1,5 @@
 const mainReducer = (state = {
-    isLoggedIn: false,
+    isAuth: false,
   }, action) => {
   switch (action.type) {
     case "LOG_IN_USER":

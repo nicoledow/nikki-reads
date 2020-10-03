@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import TestComponent from "./Components/TestComponent";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ReadingLogContainer from "./Containers/ReadingLogContainer";
 import MainMenu from "./Components/MainMenu";
@@ -9,9 +8,7 @@ import ExplorePage from './Containers/ExplorePage';
 import BookSwiperContainer from './Containers/BookSwiperContainer';
 import LoginForm from './Components/LoginForm';
 import SignupForm from './Components/SignupForm';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
-import { ThumbDown } from "@material-ui/icons";
+import Root from './Components/Root';
 
 function App() {
   return (
@@ -20,6 +17,7 @@ function App() {
       <Router>
         <MainMenu />
         <Switch>
+        <Route exact path="/" component={Root} />
           <Route exact path="/logs" component={ReadingLogContainer} />
           <Route exact path="/explore" component={ExplorePage}/>
           <Route exact path="/lists/:listName" component={BookSwiperContainer}/>
@@ -30,7 +28,5 @@ function App() {
     </div>
   );
 }
-
-// library.add(faCoffee, ThumbDown);
 
 export default App;
