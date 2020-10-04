@@ -7,7 +7,6 @@ exports.createUser = async (req, res, next) => {
   const password = req.body.password;
   const name = req.body.name;
   let user;
-console.log(req.body)
   
   const existingUser = await User.findOne({ email: email });
   if (existingUser) {
@@ -52,25 +51,24 @@ exports.verifyUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res, next) => {
-  async function checkPassword(password, user) {
-    const hashedPW = await bcrypt.hash(password, 12);
-    hashedPW === user.password ? true : false;
-  }
-
+ 
   const password = req.body.password;
   const email = req.body.email;
 
-  const user = User.find({ email });
-
-  if (!user) {
-    res.status(404).json({ message: 'User not found.' });
-  }
-
-  if (checkPassword(password, user)) {
-    const token = jwt.sign({ userId: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '24hr' });
-    res.status(200).json({ userFound: true, token: token });
-  } else {
-    res.status(403).json({ message: 'Incorrect password.' });
-  }
+  let user;
+  User.findOne({ email })
+  .then(userDoc => {
+    if (!userDoc) {
+      res.status(404).json({ message: 'User not found.', userValidated: false });
+    }
+    user = userDoc;
+    const verified = bcrypt.compareSync(password, user.password);
+    
+    if (verified) {
+      const token = jwt.sign({ email: user.email, userId: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '24hr' })
+      res.status(200).json({ userValidated: true, userId: user._id.toString(), token })
+    }
+  })
+  .catch(err => console.log(err))
 
 };
