@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res, next) => {
   const email = req.body.email;
@@ -28,4 +29,48 @@ console.log(req.body)
       res.status(201).json({ message: 'User created.', userId: user._id.toString() });
   })
   .catch(err => console.log('err', err))
+};
+
+exports.verifyUser = (req, res, next) => {
+  const userId = req.body.userId;
+  const token = req.body.webToken;
+  let decodedToken;
+
+  try {
+    decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+  } catch(err) {
+    err.statusCode(400)
+    throw err;
+  }
+
+  if (!decodedToken) {
+    res.status(403).json({ userFound: false })
+  }
+
+  req.userId = userId;
+  res.status(200).json({ userFound: true })
+};
+
+exports.loginUser = (req, res, next) => {
+  async function checkPassword(password, user) {
+    const hashedPW = await bcrypt.hash(password, 12);
+    hashedPW === user.password ? true : false;
+  }
+
+  const password = req.body.password;
+  const email = req.body.email;
+
+  const user = User.find({ email });
+
+  if (!user) {
+    res.status(404).json({ message: 'User not found.' });
+  }
+
+  if (checkPassword(password, user)) {
+    const token = jwt.sign({ userId: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '24hr' });
+    res.status(200).json({ userFound: true, token: token });
+  } else {
+    res.status(403).json({ message: 'Incorrect password.' });
+  }
+
 };

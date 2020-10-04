@@ -49,7 +49,8 @@ const LoginForm = (props) => {
       if (data.message !== 'User created.') {
         alert(`${data.message}`);
       } else {
-        props.logInUser(data.userId);
+        localStorage.currentUserId = data.userId;
+        localStorage.isAuth = true;
       }
     })
     .catch(err => {
