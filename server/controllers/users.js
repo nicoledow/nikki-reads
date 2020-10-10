@@ -38,11 +38,12 @@ exports.verifyUser = (req, res, next) => {
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   } catch(err) {
-    err.statusCode(400)
+    err.status(400)
     throw err;
   }
 
   if (!decodedToken) {
+    console.log('token not validated');
     res.status(403).json({ userFound: false })
   }
 

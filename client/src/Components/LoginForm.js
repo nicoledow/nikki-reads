@@ -21,6 +21,47 @@ const LoginForm = (props) => {
     });
   }
 
+  const logInUser = event => {
+    event.preventDefault();
+    console.log('log in user');
+
+    const form = document.getElementById('loginForm');
+    const userData = {
+      email: form.querySelector('input[name="email"]').value,
+      password: form.querySelector('input[name="password"]').value
+    };
+
+    if (!userData.email.includes('@') || !userData.email.includes('.')) {
+      alert('Please enter a valid email.');
+      return;
+    } else if (userData.password.length <= 1) {
+      alert('Pleaes enter a password to log in.');
+      return;
+    }
+
+    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/login`;
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData)
+    })
+    .then(resp => resp.json())
+    .then(result => {
+      if (!result.userValidated) {
+        alert(result.message);
+        return;
+      }
+      console.log(result);
+      localStorage.currentUserId = result.userId;
+      localStorage.webToken = result.token;
+      window.location.href = '/';
+    })
+    .catch(err => {
+      alert('We\'re sorry, an error occurred. Please try again.');
+      console.log('err', err);
+    })
+  }
+
   const signUpUser = event => {
     event.preventDefault();
 
@@ -51,11 +92,12 @@ const LoginForm = (props) => {
       } else {
         localStorage.currentUserId = data.userId;
         localStorage.isAuth = true;
+        window.location.href = '/';
       }
     })
     .catch(err => {
       alert('We\'re sorry, an error occurred. Please try again.');
-      console.log('err', err)
+      console.log('err', err);
     })
   };
 
@@ -63,7 +105,11 @@ const LoginForm = (props) => {
     return (
       <div>
         <FormTabs switchForm={switchForm}/>
-        <p>login</p>
+        <form onSubmit={logInUser} id="loginForm">
+          <input type="text" name="email" placeholder="Email address"/> <br/>
+          <input type="password" name="password" placeholder="Password"/> <br/>
+          <input type="submit" value="Log In"/>
+        </form>
       </div>
     )
   } else {

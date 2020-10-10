@@ -1,10 +1,31 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from "react-router-dom";
 
-const Root = () => {
+function Root() {
+    let [loggingIn, updateLoggingIn] = useState(true);
+    let [userVerified, updateUserVerified] = useState(false);
+
+    const setUserLoggedIn = () => {
+        updateUserVerified((prevState) => {
+            return true;
+        });
+
+        updateLoggingIn((prevState) => {
+            return false;
+        });
+    };
+
+    const setUserLoginFailed = () => {
+        updateLoggingIn((prevState) => {
+            return false;
+        });
+    };
     
     const verifyUser = (id, token) => {
+        if (!id || !token) {
+            return false;
+        }
+
         const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/users/verify`;
         fetch(url, {
             method: 'POST',
@@ -13,36 +34,27 @@ const Root = () => {
         })
         .then(resp => resp.json())
         .then(result => {
+            console.log('result', result);
             if (result.userFound) {
-                return true;
+                setUserLoggedIn();
             } else {
-                return false;
+                setUserLoginFailed();
             }
         })
     }
 
+    useEffect(() => {
+        verifyUser(localStorage.currentUserId, localStorage.webToken);
+    }, [])
 
-    if (localStorage.currentUserId && localStorage.webToken && verifyUser(localStorage.currentUserId, localStorage.webToken)) {
+    if (!loggingIn && userVerified) {
         return <Redirect to="/logs"/>;
+    } else if (loggingIn) {
+        return <div>Logging in...</div>
     } else {
+        console.log('checks not met')
         return <Redirect to="/login"/>;
     }
 };
 
 export default Root;
-
-// class Root extends React.Component {
-//   render() {
-//       if (this.props.isAuth) {
-//           return <Redirect to="/logs"/>;
-//       } else {
-//           return <Redirect to="/login"/>;
-//       }
-//   }
-// }
-
-// const mapStateToProps = state => {
-//     return { isAuth: state.isAuth }
-// };
-
-// export default connect(mapStateToProps, null)(Root);
