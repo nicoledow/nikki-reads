@@ -8,24 +8,37 @@ import ExplorePage from './Containers/ExplorePage';
 import BookSwiperContainer from './Containers/BookSwiperContainer';
 import LoginForm from './Components/LoginForm';
 import Root from './Components/Root';
+import UserLinks from './Components/UserLinks';
+import SignUpLoginMenu from './Components/SignUpLoginMenu';
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Router>
-        <MainMenu />
-        <Switch>
-        <Route exact path="/" component={Root} />
-          <Route exact path="/logs" component={ReadingLogContainer} />
-          <Route exact path="/explore" component={ExplorePage}/>
-          <Route exact path="/lists/:listName" component={BookSwiperContainer}/>
-          <Route exact path="/login" component={LoginForm}/>
-          <Route exact path="/signup" component={LoginForm}/>
-        </Switch>
-      </Router>
-    </div>
-  );
+  if (localStorage.currentUserId) {
+    return (
+      <div>
+        <UserLinks />
+        <Header />
+        <Router>
+          <MainMenu />
+          <Switch>
+            <Route exact path="/" component={Root} />
+            <Route exact path="/logs" component={ReadingLogContainer} />
+            <Route exact path="/explore" component={ExplorePage} />
+            <Route exact path="/lists/:listName" component={BookSwiperContainer} />
+            <Route exact path="/login" component={LoginForm} />
+            <Route exact path="/signup" component={LoginForm} />
+          </Switch>
+        </Router>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <Header/>
+        <SignUpLoginMenu />
+      </div>
+    )
+  }
 }
+
 
 export default App;

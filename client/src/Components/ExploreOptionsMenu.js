@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import BookListGrid from "./BookListGrid";
 
-const dotenv = require("dotenv");
 const nytBaseUrl = process.env.REACT_APP_NYT_BOOKS_API_BASE;
 
 const ExploreOptionsMenu = () => {

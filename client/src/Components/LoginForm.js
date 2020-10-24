@@ -9,8 +9,7 @@ const LoginForm = (props) => {
   let [selectedForm, selectForm] = useState("login");
 
   const useStyles = makeStyles({
-    gridItem: {
-    }
+    gridItem: {}
   });
   const classes = useStyles();
 
@@ -19,7 +18,7 @@ const LoginForm = (props) => {
     selectForm(prevForm => {
       return selectedTab;
     });
-  }
+  };
 
   const logInUser = event => {
     event.preventDefault();

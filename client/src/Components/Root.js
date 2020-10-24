@@ -36,9 +36,11 @@ function Root() {
         .then(result => {
             console.log('result', result);
             if (result.userFound) {
-                setUserLoggedIn();
+                console.log('user found', result);
+                // setUserLoggedIn();
             } else {
-                setUserLoginFailed();
+                console.log('user not found', result);
+                // setUserLoginFailed();
             }
         })
     }
@@ -47,14 +49,17 @@ function Root() {
         verifyUser(localStorage.currentUserId, localStorage.webToken);
     }, [])
 
-    if (!loggingIn && userVerified) {
-        return <Redirect to="/logs"/>;
-    } else if (loggingIn) {
-        return <div>Logging in...</div>
-    } else {
-        console.log('checks not met')
-        return <Redirect to="/login"/>;
-    }
+    // if (!loggingIn && userVerified) {
+    //     return <Redirect to="/logs"/>;
+    // } else if (loggingIn) {
+    //     return <div>Logging in...</div>
+    // } else {
+    //     console.log('checks not met')
+    //     return <Redirect to="/login"/>;
+    // }
+    return (
+        <div>Root</div>
+    )
 };
 
 export default Root;
