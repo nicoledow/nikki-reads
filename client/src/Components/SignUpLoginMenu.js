@@ -1,15 +1,21 @@
 import React from 'react';
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, Button } from "@material-ui/core";
 
-const SignUpLoginMenu = () => {
+function SignUpLoginMenu(props) {
+    const myProps = props;
+
+    const showUserLoginForm = () => {
+        myProps.hideSignupButtons('login');
+    };
+
     return (
         <Container>
-            <Grid container spacing={2} style={{marginTop: '20%'}}>
+            <Grid container spacing={2} style={{marginTop: '15%'}}>
                 <Grid item xs={6} style={{textAlign: 'center'}}>
-                    <a href="/login">Log In</a>
+                    <Button onClick={showUserLoginForm}> Log In </Button>
                 </Grid>
                 <Grid item xs={6} style={{textAlign: 'center'}}>
-                    <a href="/signup">Sign Up</a>
+                    <Button> Sign Up </Button>
                 </Grid>
             </Grid>
         </Container>
