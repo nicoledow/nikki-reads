@@ -60,7 +60,7 @@ export default class App extends React.Component {
         return (
           <div class="app">
             <Header />
-            <SignUpLoginForm form={this.state.formType}/>
+            <SignUpLoginForm form={this.state.displayForm}/>
           </div>
         )
       }

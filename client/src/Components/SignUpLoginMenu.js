@@ -4,18 +4,18 @@ import { Grid, Container, Button } from "@material-ui/core";
 function SignUpLoginMenu(props) {
     const myProps = props;
 
-    const showUserLoginForm = () => {
-        myProps.hideSignupButtons('login');
+    const showUserForm = formType => {
+        myProps.hideSignupButtons(formType);
     };
 
     return (
         <Container>
             <Grid container spacing={2} style={{marginTop: '15%'}}>
                 <Grid item xs={6} style={{textAlign: 'center'}}>
-                    <Button onClick={showUserLoginForm}> Log In </Button>
+                    <Button onClick={() => showUserForm('login')}> Log In </Button>
                 </Grid>
                 <Grid item xs={6} style={{textAlign: 'center'}}>
-                    <Button> Sign Up </Button>
+                    <Button onClick={() => showUserForm('signup')}> Sign Up </Button>
                 </Grid>
             </Grid>
         </Container>
