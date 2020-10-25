@@ -25,7 +25,7 @@ exports.createUser = async (req, res, next) => {
   })
   .then(result => {
       console.log('userid', user._id.toString())
-      res.status(201).json({ message: 'User created.', userId: user._id.toString() });
+      res.status(201).json({ message: 'User created.', userId: user._id.toString(), status: 201 });
   })
   .catch(err => console.log('err', err))
 };

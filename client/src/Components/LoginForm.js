@@ -17,7 +17,7 @@ function LoginForm(props) {
     });
     
     if (validateInputs(formData)) {
-      console.log('can be submitted');
+      createNewUser(formData);
     } else {
       console.log('failed validations');
     }
@@ -33,6 +33,29 @@ function LoginForm(props) {
     } else {
       return true;
     }
+  }
+
+  const createNewUser = data => {
+    fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(resp => resp.json())
+    .then(result => {
+      if (result.status === 201) {
+        localStorage.currentUserId = result.userId;
+        window.location.href = '/';
+      } else if (result.status === 400) {
+        alert('A user with this email is already registered!');
+      } else {
+        alert('Your account could not be created. Please verify your information and try again later.');
+      }
+    })
+    .catch(err => {
+      console.log('err', err);
+      alert('We\'re sorry, your account could not be created. Please try again later.');
+    })
   }
 
   if (props.form === 'signup') {
