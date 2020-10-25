@@ -46,6 +46,7 @@ function Root() {
     }
 
     useEffect(() => {
+        console.log('localstorage', localStorage.currentUserId);
         verifyUser(localStorage.currentUserId, localStorage.webToken);
     }, [])
 

@@ -49,6 +49,14 @@ const theme = createMuiTheme({
       textAlign: 'center',
       height: '2rem',
       width: '75%'
+    },
+    menu:{
+      color: '#bee7e8',
+      backgroundColor: '#726da8',
+      fontFamily: "Lato",
+      '&hover': {
+        color: '#726da8'
+      }
     }
   }
 });

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from "react";
-import { Container, Typography } from '@material-ui/core';
+import { Container, makeStyles } from '@material-ui/core';
+import Theme from '../Theme/Theme';
 
 function LoginForm(props) {
 
@@ -15,7 +15,7 @@ function LoginForm(props) {
         formData[input.name] = input.value;
       }
     });
-    
+
     if (validateInputs(formData)) {
       createNewUser(formData);
     } else {
@@ -41,36 +41,57 @@ function LoginForm(props) {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
     })
-    .then(resp => resp.json())
-    .then(result => {
-      if (result.status === 201) {
-        localStorage.currentUserId = result.userId;
-        window.location.href = '/';
-      } else if (result.status === 400) {
-        alert('A user with this email is already registered!');
-      } else {
-        alert('Your account could not be created. Please verify your information and try again later.');
-      }
-    })
-    .catch(err => {
-      console.log('err', err);
-      alert('We\'re sorry, your account could not be created. Please try again later.');
-    })
+      .then(resp => resp.json())
+      .then(result => {
+        if (result.status === 201) {
+          localStorage.currentUserId = result.userId;
+          window.location.href = '/';
+        } else if (result.status === 400) {
+          alert('A user with this email is already registered!');
+        } else {
+          alert('Your account could not be created. Please verify your information and try again later.');
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+        alert('We\'re sorry, your account could not be created. Please try again later.');
+      })
   }
+
+  const useStyles = makeStyles({
+    form: {
+      border: `1px solid ${Theme.palette.info.main}`,
+      width: '66%',
+      padding: '1.5rem',
+      margin: 'auto',
+      borderRadius: '1.5rem',
+      backgroundColor: Theme.palette.tertiary.main
+    },
+    input: {
+      width: '66%',
+      height: '2rem',
+      margin: '0.75rem',
+      border: `1.5px solid ${Theme.palette.info.main}`,
+      borderRadius: '0.25rem',
+      textAlign: 'center'
+    }
+  });
+  const classes = useStyles();
 
   if (props.form === 'signup') {
     return (
-      <Container>
-        <form onSubmit={handleSignup}>
-          <input type="text" name="name" placeholder="Name" /><br />
-          <input type="text" name="email" placeholder="Email address" /><br />
-          <input type="password" name="password" placeholder="Password" /><br />
-          <input type="password" name="confirmPassword" placeholder="Confirm Password" /><br />
-          <input type="submit" value="Sign Up" />
+      <Container style={{ textAlign: 'center' }}>
+        <form onSubmit={handleSignup} className={classes.form}>
+          <input type="text" name="name" placeholder="Name" className={classes.input} /><br />
+          <input type="text" name="email" placeholder="Email address" className={classes.input} /><br />
+          <input type="password" name="password" placeholder="Password" className={classes.input} /><br />
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" className={classes.input} /><br />
+          <input type="submit" value="Sign Up" style={{ ...Theme.buttons.menu, padding: '0.75rem' }} />
         </form>
       </Container>
     )
   }
+
 }
 
 export default LoginForm;
