@@ -25,6 +25,8 @@ export default class App extends React.Component{
   }
 
   render() {
+    console.log('current user id', localStorage.currentUserId);
+    
     if (this.state.isLoggedIn) {
       console.log('logged in')
       return (
