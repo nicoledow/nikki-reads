@@ -3,6 +3,7 @@ import { Container, makeStyles } from '@material-ui/core';
 import Theme from '../Theme/Theme';
 
 function LoginForm(props) {
+  console.log('log in form props', props);
 
   const handleSignup = e => {
     e.preventDefault();
@@ -44,7 +45,8 @@ function LoginForm(props) {
       .then(resp => resp.json())
       .then(result => {
         if (result.status === 201) {
-          localStorage.currentUserId = result.userId;
+          // localStorage.currentUserId = result.userId;
+          props.logInUser(result.userId);
           window.location.href = '/';
         } else if (result.status === 400) {
           alert('A user with this email is already registered!');
@@ -63,7 +65,7 @@ function LoginForm(props) {
 
     const inputs = [...e.target.querySelectorAll('input')];
     const emptyInput = inputs.find(input => input.value === '')
-    if(emptyInput) {
+    if (emptyInput) {
       emptyInput.style = 'border: 2.5px solid red';
       emptyInput.addEventListener('change', () => {
         emptyInput.style = '';
@@ -71,7 +73,7 @@ function LoginForm(props) {
       return;
     }
 
-    const userData = { 
+    const userData = {
       email: e.target.querySelector('input[name="email"]').value,
       password: e.target.querySelector('input[name="password"]').value
     };
@@ -81,20 +83,21 @@ function LoginForm(props) {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(userData)
     })
-    .then(resp => resp.json())
-    .then(result => {
-      console.log('log in result', result);
-      if(result.userValidated) {
-        localStorage.currentUserId = result.userId;
-        window.location.href = '/';
-      } else {
-        alert('Password incorrect.');
-      }
-    })
-    .catch(err => {
-      console.log('log in err', err);
-      alert('We\'re sorry, your request cannot be processed right now. Please try again later.');
-    })
+      .then(resp => resp.json())
+      .then(result => {
+        console.log('log in result', result);
+        if (result.userValidated) {
+          props.logInUser(result.userId);
+          // localStorage.currentUserId = result.userId;
+          window.location.href = '/';
+        } else {
+          alert('Password incorrect.');
+        }
+      })
+      .catch(err => {
+        console.log('log in err', err);
+        alert('We\'re sorry, your request cannot be processed right now. Please try again later.');
+      })
   }
 
   const useStyles = makeStyles({
@@ -116,7 +119,7 @@ function LoginForm(props) {
     }
   });
   const classes = useStyles();
-  
+
   if (window.location.href.split('/').pop() === 'signup') {
     return (
       <Container style={{ textAlign: 'center' }}>
@@ -137,6 +140,10 @@ function LoginForm(props) {
           <input type="password" name="password" placeholder="Password" className={classes.input} /><br />
           <input type="submit" value="Log In" style={{ ...Theme.buttons.menu, padding: '0.75rem' }} />
         </form>
+        <div style={{ textAlign: 'center' }}>
+          New user?
+          <a href="/signup" style={Theme.links.plainText}>Sign up here.</a>
+        </div>
       </Container>
     )
   }

@@ -8,41 +8,50 @@ import UserLinks from './Components/UserLinks';
 import Header from './Components/Header';
 import MainMenu from './Components/MainMenu';
 import Home from './Containers/Home';
-import Theme from './Theme/Theme';
 
-export default function App() {
+export default class App extends React.Component{
+  constructor() {
+    super();
+    this.state = {
+      isLoggedIn: localStorage.currentUserId ? true : false,
+      currentUserId: localStorage.currentUserId || null
+    }
+  }
 
-  const isLoggedIn = localStorage.currentUserId;
+  logInUser = userId => {
+    localStorage.currentUserId = userId;
+    this.setState({ isLoggedIn: true, currentUserId: userId });
+  }
 
-  if (isLoggedIn) {
-    return (
-      <div class="app">
-        <UserLinks />
-        <Header />
-        <Router>
-          <MainMenu />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/logs" component={ReadingLogContainer} />
-            <Route exact path="/explore" component={ExplorePage} />
-            <Route exact path="/lists/:listName" component={BookSwiperContainer} />
-            <Route exact path="/login" component={LoginForm} />
-            <Route exact path="/signup" component={LoginForm} />
-          </Switch>
-        </Router>
-      </div>
-    )
-  } else {
-    return (
-      <div className="app">
-        <Header />
-        <LoginForm />
-        <div style={{textAlign: 'center'}}>
-          New user?
-          <a href="/signup" style={Theme.links.plainText}>Sign up here.</a>
+  render() {
+    if (this.state.isLoggedIn) {
+      console.log('logged in')
+      return (
+        <div class="app">
+          <UserLinks />
+          <Header />
+          <Router>
+            <MainMenu />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/logs" component={ReadingLogContainer} />
+              <Route exact path="/explore" component={ExplorePage} />
+              <Route exact path="/lists/:listName" component={BookSwiperContainer} />
+              <Route exact path="/login" component={LoginForm} />
+              <Route exact path="/signup" component={LoginForm} />
+            </Switch>
+          </Router>
         </div>
-      </div>
-    )
+      )
+    } else {
+      console.log('not logged in')
+      return (
+        <div className="app">
+          <Header />
+          <LoginForm logInUser={this.logInUser}/>
+        </div>
+      )
+    }
   }
 
 }
