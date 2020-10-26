@@ -1,66 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { Redirect } from "react-router-dom";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import ReadingLogContainer from '../Containers/ReadingLogContainer';
+import ExplorePage from '../Containers/ExplorePage';
+import BookSwiperContainer from '../Containers/BookSwiperContainer';
+import LoginForm from './LoginForm';
+import UserLinks from './UserLinks';
+import Header from './Header';
+import MainMenu from './MainMenu';
 
-function Root() {
-    let [loggingIn, updateLoggingIn] = useState(true);
-    let [userVerified, updateUserVerified] = useState(false);
+export default function Root() {
+    let [isLoggedIn, updateLoggedInStatus] = useState(false);
 
-    const setUserLoggedIn = () => {
-        updateUserVerified((prevState) => {
-            return true;
-        });
-
-        updateLoggingIn((prevState) => {
-            return false;
-        });
-    };
-
-    const setUserLoginFailed = () => {
-        updateLoggingIn((prevState) => {
-            return false;
-        });
-    };
-    
-    const verifyUser = (id, token) => {
-        if (!id || !token) {
-            return false;
-        }
-
-        const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/users/verify`;
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId: id, webToken: token })
-        })
-        .then(resp => resp.json())
-        .then(result => {
-            console.log('result', result);
-            if (result.userFound) {
-                console.log('user found', result);
-                // setUserLoggedIn();
-            } else {
-                console.log('user not found', result);
-                // setUserLoginFailed();
-            }
-        })
+    if (localStorage.currentUserId) {
+        updateLoggedInStatus(true);
     }
 
-    useEffect(() => {
-        console.log('localstorage', localStorage.currentUserId);
-        verifyUser(localStorage.currentUserId, localStorage.webToken);
-    }, [])
+    if (isLoggedIn) {
+        return (
+            <div class="app">
+                <UserLinks />
+                <Header />
+                <Router>
+                    <MainMenu />
+                    <Switch>
+                        <Route exact path="/" component={Root} />
+                        <Route exact path="/logs" component={ReadingLogContainer} />
+                        <Route exact path="/explore" component={ExplorePage} />
+                        <Route exact path="/lists/:listName" component={BookSwiperContainer} />
+                        <Route exact path="/login" component={LoginForm} />
+                        <Route exact path="/signup" component={LoginForm} />
+                    </Switch>
+                </Router>
+            </div>
+        )
+    } else {
+        window.location.href = '/';
+    }
 
-    // if (!loggingIn && userVerified) {
-    //     return <Redirect to="/logs"/>;
-    // } else if (loggingIn) {
-    //     return <div>Logging in...</div>
-    // } else {
-    //     console.log('checks not met')
-    //     return <Redirect to="/login"/>;
-    // }
-    return (
-        <div>Root</div>
-    )
-};
-
-export default Root;
+}

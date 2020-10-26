@@ -58,6 +58,13 @@ const theme = createMuiTheme({
         color: '#726da8'
       }
     }
+  },
+  links: {
+    plainText: {
+      textDecoration: 'none',
+      color: '#594157',
+      margin: '1rem'
+    }
   }
 });
 

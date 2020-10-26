@@ -116,8 +116,8 @@ function LoginForm(props) {
     }
   });
   const classes = useStyles();
-
-  if (props.form === 'signup') {
+  
+  if (window.location.href.split('/').pop() === 'signup') {
     return (
       <Container style={{ textAlign: 'center' }}>
         <form onSubmit={handleSignup} className={classes.form}>
@@ -129,7 +129,7 @@ function LoginForm(props) {
         </form>
       </Container>
     )
-  } else if (props.form === 'login') {
+  } else {
     return (
       <Container style={{ textAlign: 'center' }}>
         <form onSubmit={handleLogin} className={classes.form}>

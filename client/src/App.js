@@ -1,72 +1,48 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import ReadingLogContainer from "./Containers/ReadingLogContainer";
-import MainMenu from "./Components/MainMenu";
-import Header from "./Components/Header";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ReadingLogContainer from './Containers/ReadingLogContainer';
 import ExplorePage from './Containers/ExplorePage';
 import BookSwiperContainer from './Containers/BookSwiperContainer';
 import LoginForm from './Components/LoginForm';
-import Root from './Components/Root';
 import UserLinks from './Components/UserLinks';
-import SignUpLoginMenu from './Components/SignUpLoginMenu';
-import SignUpLoginForm from './Components/LoginForm';
+import Header from './Components/Header';
+import MainMenu from './Components/MainMenu';
+import Home from './Containers/Home';
+import Theme from './Theme/Theme';
 
-export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      showLoginButtons: true
-    }
-  }
+export default function App() {
 
-  hideSignupButtons = formType => {
-    this.setState({ 
-      showLoginButtons: false,
-      displayForm: formType
-     });
-  }
+  const isLoggedIn = localStorage.currentUserId;
 
-  render() {
-    console.log('app component state', this.state);
-
-    if (localStorage.currentUserId) {
-      return (
-        <div class="app">
-          <UserLinks />
-          <Header />
-          <Router>
-            <MainMenu />
-            <Switch>
-              <Route exact path="/" component={Root} />
-              <Route exact path="/logs" component={ReadingLogContainer} />
-              <Route exact path="/explore" component={ExplorePage} />
-              <Route exact path="/lists/:listName" component={BookSwiperContainer} />
-              <Route exact path="/login" component={LoginForm} />
-              <Route exact path="/signup" component={LoginForm} />
-            </Switch>
-          </Router>
+  if (isLoggedIn) {
+    return (
+      <div class="app">
+        <UserLinks />
+        <Header />
+        <Router>
+          <MainMenu />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/logs" component={ReadingLogContainer} />
+            <Route exact path="/explore" component={ExplorePage} />
+            <Route exact path="/lists/:listName" component={BookSwiperContainer} />
+            <Route exact path="/login" component={LoginForm} />
+            <Route exact path="/signup" component={LoginForm} />
+          </Switch>
+        </Router>
+      </div>
+    )
+  } else {
+    return (
+      <div className="app">
+        <Header />
+        <LoginForm />
+        <div style={{textAlign: 'center'}}>
+          New user?
+          <a href="/signup" style={Theme.links.plainText}>Sign up here.</a>
         </div>
-      )
-    } else {
-      if (this.state.showLoginButtons) {
-        return (
-          <div class="app">
-            <Header />
-            <SignUpLoginMenu hideSignupButtons={this.hideSignupButtons} />
-          </div>
-        )
-      } else {
-        return (
-          <div class="app">
-            <Header />
-            <SignUpLoginForm form={this.state.displayForm}/>
-          </div>
-        )
-      }
-    }
-
+      </div>
+    )
   }
+
 }
-
-
