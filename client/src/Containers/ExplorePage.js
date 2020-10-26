@@ -1,10 +1,15 @@
 import React from 'react';
-import ExploreOptionsMenu from '../Components/ExploreOptionsMenu';
+import { Grid, Button } from '@material-ui/core';
 
 export default function ExplorePage() {
-    if (!localStorage.currentUserId) {
-        window.location.href = '/';
-    }
 
-    
+    return (
+        <Grid container direction="column">
+            <Grid item>
+                <Button>
+                    <a href="/lists" style={{textDecoration: 'none'}}>Browse New York Times Lists</a>
+                </Button>
+            </Grid>
+        </Grid>
+    )
 }
