@@ -56,6 +56,45 @@ function LoginForm(props) {
         console.log('err', err);
         alert('We\'re sorry, your account could not be created. Please try again later.');
       })
+  };
+
+  const handleLogin = e => {
+    e.preventDefault();
+
+    const inputs = [...e.target.querySelectorAll('input')];
+    const emptyInput = inputs.find(input => input.value === '')
+    if(emptyInput) {
+      emptyInput.style = 'border: 2.5px solid red';
+      emptyInput.addEventListener('change', () => {
+        emptyInput.style = '';
+      });
+      return;
+    }
+
+    const userData = { 
+      email: e.target.querySelector('input[name="email"]').value,
+      password: e.target.querySelector('input[name="password"]').value
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(userData)
+    })
+    .then(resp => resp.json())
+    .then(result => {
+      console.log('log in result', result);
+      if(result.userValidated) {
+        localStorage.currentUserId = result.userId;
+        window.location.href = '/';
+      } else {
+        alert('Password incorrect.');
+      }
+    })
+    .catch(err => {
+      console.log('log in err', err);
+      alert('We\'re sorry, your request cannot be processed right now. Please try again later.');
+    })
   }
 
   const useStyles = makeStyles({
@@ -87,6 +126,16 @@ function LoginForm(props) {
           <input type="password" name="password" placeholder="Password" className={classes.input} /><br />
           <input type="password" name="confirmPassword" placeholder="Confirm Password" className={classes.input} /><br />
           <input type="submit" value="Sign Up" style={{ ...Theme.buttons.menu, padding: '0.75rem' }} />
+        </form>
+      </Container>
+    )
+  } else if (props.form === 'login') {
+    return (
+      <Container style={{ textAlign: 'center' }}>
+        <form onSubmit={handleLogin} className={classes.form}>
+          <input type="text" name="email" placeholder="Email address" className={classes.input} /><br />
+          <input type="password" name="password" placeholder="Password" className={classes.input} /><br />
+          <input type="submit" value="Log In" style={{ ...Theme.buttons.menu, padding: '0.75rem' }} />
         </form>
       </Container>
     )
