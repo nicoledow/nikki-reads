@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, GridList, GridListTile } from "@material-ui/core";
 import MainMenuBox from "./MainMenuBox";
 

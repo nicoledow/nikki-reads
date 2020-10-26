@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ReadingLogContainer from '../Containers/ReadingLogContainer';
 import ExplorePage from '../Containers/ExplorePage';
 import BookSwiperContainer from '../Containers/BookSwiperContainer';

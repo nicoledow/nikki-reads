@@ -1,8 +1,5 @@
 import React from 'react';
 import { Container, Button, makeStyles } from "@material-ui/core";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Theme from '../Theme/Theme';
-
 
 const LikeButtons = props => {
     const useStyles = makeStyles({
