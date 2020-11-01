@@ -38,8 +38,8 @@ exports.verifyUser = (req, res, next) => {
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   } catch(err) {
-    err.status(400)
-    throw err;
+    res.status(400);
+    res.status(400).json({ userFound: false, message: err});
   }
 
   if (!decodedToken) {
