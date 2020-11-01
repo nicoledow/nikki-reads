@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import BookSwiper from '../Components/BookSwiper';
 

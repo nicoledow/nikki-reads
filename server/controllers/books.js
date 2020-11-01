@@ -1,4 +1,5 @@
 const Book = require('../models/book');
+const User = require('../models/user');
 
 exports.addBook = (req, res, next) => {
 
@@ -35,3 +36,9 @@ exports.addBook = (req, res, next) => {
         res.status(201).json(response)
     })
 };
+
+exports.getCurrentUserBooks = (req, res, next) => {
+    const userId = req.params.userId;
+    const user = User.findById(userId);
+    
+}

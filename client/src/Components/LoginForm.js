@@ -1,137 +1,153 @@
-import React from "react";
-import { useState } from "react";
-import { connect } from "react-redux";
-import { makeStyles, Grid, Container, Button } from "@material-ui/core";
-import { logInUser } from "../actions/logInUser";
-import FormTabs from './FormTabs';
+import React from 'react';
+import { Container, makeStyles } from '@material-ui/core';
+import Theme from '../Theme/Theme';
 
-const LoginForm = (props) => {
-  let [selectedForm, selectForm] = useState("login");
+function LoginForm(props) {
+  console.log('log in form props', props);
+
+  const handleSignup = e => {
+    e.preventDefault();
+
+    const inputs = [...e.target.querySelectorAll('input')];
+
+    const formData = {}
+    inputs.forEach(input => {
+      if (input.type !== 'submit') {
+        formData[input.name] = input.value;
+      }
+    });
+
+    if (validateInputs(formData)) {
+      createNewUser(formData);
+    } else {
+      console.log('failed validations');
+    }
+  };
+
+  const validateInputs = data => {
+    if (data.password !== data.confirmPassword) {
+      alert('Passwords do not match!');
+      return false;
+    } else if (!Object.values(data).every(value => value !== '')) {
+      alert('All fields are required!');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  const createNewUser = data => {
+    fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(resp => resp.json())
+      .then(result => {
+        if (result.status === 201) {
+          // localStorage.currentUserId = result.userId;
+          props.logInUser(result.userId);
+          window.location.href = '/';
+        } else if (result.status === 400) {
+          alert('A user with this email is already registered!');
+        } else {
+          alert('Your account could not be created. Please verify your information and try again later.');
+        }
+      })
+      .catch(err => {
+        console.log('err', err);
+        alert('We\'re sorry, your account could not be created. Please try again later.');
+      })
+  };
+
+  const handleLogin = e => {
+    e.preventDefault();
+
+    const inputs = [...e.target.querySelectorAll('input')];
+    const emptyInput = inputs.find(input => input.value === '')
+    if (emptyInput) {
+      emptyInput.style = 'border: 2.5px solid red';
+      emptyInput.addEventListener('change', () => {
+        emptyInput.style = '';
+      });
+      return;
+    }
+
+    const userData = {
+      email: e.target.querySelector('input[name="email"]').value,
+      password: e.target.querySelector('input[name="password"]').value
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(userData)
+    })
+      .then(resp => resp.json())
+      .then(result => {
+        console.log('log in result', result);
+        if (result.userValidated) {
+          props.logInUser(result.userId);
+          // localStorage.currentUserId = result.userId;
+          window.location.href = '/';
+        } else {
+          alert('Password incorrect.');
+        }
+      })
+      .catch(err => {
+        console.log('log in err', err);
+        alert('We\'re sorry, your request cannot be processed right now. Please try again later.');
+      })
+  }
 
   const useStyles = makeStyles({
-    gridItem: {
+    form: {
+      border: `1px solid ${Theme.palette.info.main}`,
+      width: '66%',
+      padding: '1.5rem',
+      margin: 'auto',
+      borderRadius: '1.5rem',
+      backgroundColor: Theme.palette.tertiary.main
+    },
+    input: {
+      width: '66%',
+      height: '2rem',
+      margin: '0.75rem',
+      border: `1.5px solid ${Theme.palette.info.main}`,
+      borderRadius: '0.25rem',
+      textAlign: 'center'
     }
   });
   const classes = useStyles();
 
-  const switchForm = event => {
-    const selectedTab = event.target.parentElement.id;
-    selectForm(prevForm => {
-      return selectedTab;
-    });
-  }
-
-  const logInUser = event => {
-    event.preventDefault();
-    console.log('log in user');
-
-    const form = document.getElementById('loginForm');
-    const userData = {
-      email: form.querySelector('input[name="email"]').value,
-      password: form.querySelector('input[name="password"]').value
-    };
-
-    if (!userData.email.includes('@') || !userData.email.includes('.')) {
-      alert('Please enter a valid email.');
-      return;
-    } else if (userData.password.length <= 1) {
-      alert('Pleaes enter a password to log in.');
-      return;
-    }
-
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/login`;
-    fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
-    })
-    .then(resp => resp.json())
-    .then(result => {
-      if (!result.userValidated) {
-        alert(result.message);
-        return;
-      }
-      console.log(result);
-      localStorage.currentUserId = result.userId;
-      localStorage.webToken = result.token;
-      window.location.href = '/';
-    })
-    .catch(err => {
-      alert('We\'re sorry, an error occurred. Please try again.');
-      console.log('err', err);
-    })
-  }
-
-  const signUpUser = event => {
-    event.preventDefault();
-
-    const form = document.getElementById('signupForm');
-    const userData = {
-      name: form.querySelector('input[name="name"]').value,
-      email: form.querySelector('input[name="email"]').value,
-      password: form.querySelector('input[name="password"]').value,
-      confirmPassword: form.querySelector('input[name="confirmPassword"]').value
-    };
-
-    if (userData.password !== userData.confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/users`;
-    fetch(url, {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: JSON.stringify(userData)
-    })
-    .then(resp => resp.json())
-    .then(data => {
-      if (data.message !== 'User created.') {
-        alert(`${data.message}`);
-      } else {
-        localStorage.currentUserId = data.userId;
-        localStorage.isAuth = true;
-        window.location.href = '/';
-      }
-    })
-    .catch(err => {
-      alert('We\'re sorry, an error occurred. Please try again.');
-      console.log('err', err);
-    })
-  };
-
-  if (selectedForm === 'login') {
+  if (window.location.href.split('/').pop() === 'signup') {
     return (
-      <div>
-        <FormTabs switchForm={switchForm}/>
-        <form onSubmit={logInUser} id="loginForm">
-          <input type="text" name="email" placeholder="Email address"/> <br/>
-          <input type="password" name="password" placeholder="Password"/> <br/>
-          <input type="submit" value="Log In"/>
+      <Container style={{ textAlign: 'center' }}>
+        <form onSubmit={handleSignup} className={classes.form}>
+          <input type="text" name="name" placeholder="Name" className={classes.input} /><br />
+          <input type="text" name="email" placeholder="Email address" className={classes.input} /><br />
+          <input type="password" name="password" placeholder="Password" className={classes.input} /><br />
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" className={classes.input} /><br />
+          <input type="submit" value="Sign Up" style={{ ...Theme.buttons.menu, padding: '0.75rem' }} />
         </form>
-      </div>
+      </Container>
     )
   } else {
     return (
-      <div>
-        <FormTabs/>
-        <form onSubmit={e => signUpUser(e)} id="signupForm">
-          <input type="text" name="name" placeholder="Name"/> <br/>
-          <input type="text" name="email" placeholder="Email address"/> <br/>
-          <input type="password" name="password" placeholder="Password"/> <br/>
-          <input type="password" name="confirmPassword" placeholder="Confirm Password"/> <br/>
-          <input type="submit" value="Sign Up"/>
+      <Container style={{ textAlign: 'center' }}>
+        <form onSubmit={handleLogin} className={classes.form}>
+          <input type="text" name="email" placeholder="Email address" className={classes.input} /><br />
+          <input type="password" name="password" placeholder="Password" className={classes.input} /><br />
+          <input type="submit" value="Log In" style={{ ...Theme.buttons.menu, padding: '0.75rem' }} />
         </form>
-      </div>
+        <div style={{ textAlign: 'center' }}>
+          New user?
+          <a href="/signup" style={Theme.links.plainText}>Sign up here.</a>
+        </div>
+      </Container>
     )
   }
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logInUser: userId => dispatch(logInUser),
-  };
-};
+}
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default LoginForm;

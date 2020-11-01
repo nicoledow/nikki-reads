@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import CurrentBooks from '../Components/CurrentBooks';
-import ReadingChartsContainer from '../Containers/ReadingCharts';
+import ReadingLogger from '../Components/ReadingLogger';
 
 const ReadingLogContainer = () => {
     return(
@@ -10,7 +10,7 @@ const ReadingLogContainer = () => {
                 <CurrentBooks />
             </Grid>
             <Grid item xs={12} sm={8} >
-                <ReadingChartsContainer />
+                <ReadingLogger />
             </Grid>
         </Grid>
     )

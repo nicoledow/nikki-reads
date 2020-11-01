@@ -1,24 +1,15 @@
 import React from 'react';
-import ExploreOptionsMenu from '../Components/ExploreOptionsMenu';
-import { Redirect } from "react-router-dom";
-import { connect } from 'react-redux';
+import { Grid, Button } from '@material-ui/core';
 
-class ExplorePage extends React.Component {
+export default function ExplorePage() {
 
-    render() {
-        if (!this.props.isAuth) {
-            return <Redirect to="/login"/>;
-        }
-        return (
-            <div>
-                <ExploreOptionsMenu/>
-            </div>
-        )
-    }
+    return (
+        <Grid container direction="column">
+            <Grid item>
+                <Button>
+                    <a href="/lists" style={{textDecoration: 'none'}}>Browse New York Times Lists</a>
+                </Button>
+            </Grid>
+        </Grid>
+    )
 }
-
-const mapStateToProps = state => {
-    return { isAuth: state.isAuth };
-}
-
-export default connect(mapStateToProps)(ExplorePage);

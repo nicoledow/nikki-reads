@@ -25,7 +25,7 @@ exports.createUser = async (req, res, next) => {
   })
   .then(result => {
       console.log('userid', user._id.toString())
-      res.status(201).json({ message: 'User created.', userId: user._id.toString() });
+      res.status(201).json({ message: 'User created.', userId: user._id.toString(), status: 201 });
   })
   .catch(err => console.log('err', err))
 };
@@ -68,6 +68,8 @@ exports.loginUser = (req, res, next) => {
     if (verified) {
       const token = jwt.sign({ email: user.email, userId: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '24hr' })
       res.status(200).json({ userValidated: true, userId: user._id.toString(), token })
+    } else {
+      res.status(400).json({ userValidated: false, userId: null, token: null })
     }
   })
   .catch(err => console.log(err))
