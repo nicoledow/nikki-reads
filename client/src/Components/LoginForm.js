@@ -121,7 +121,7 @@ const LoginForm = () => {
       padding: "1.5rem",
       margin: "auto",
       borderRadius: "1.5rem",
-      backgroundColor: Theme.palette.tertiary.main,
+      backgroundColor: Theme.palette.tertiary.secondary,
     },
     input: {
       width: "66%",
