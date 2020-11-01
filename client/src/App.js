@@ -19,10 +19,6 @@ export default class App extends React.Component{
     }
   }
 
-  logInUser = userId => {
-    localStorage.currentUserId = userId;
-    this.setState({ isLoggedIn: true, currentUserId: userId });
-  }
 
   render() {
     console.log('current user id', localStorage.currentUserId);
@@ -48,11 +44,10 @@ export default class App extends React.Component{
         </div>
       )
     } else {
-      console.log('not logged in')
       return (
         <div className="app">
           <Header />
-          <LoginForm logInUser={this.logInUser}/>
+          <LoginForm/>
         </div>
       )
     }

@@ -15,6 +15,7 @@ const UserLinks = () => {
     }
 
     if (localStorage.currentUserId) {
+        console.log('local storage', localStorage)
         return (
             <Button className={classes.floatRight} onClick={logOutUser}>
                 Log Out
