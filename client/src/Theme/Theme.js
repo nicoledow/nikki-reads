@@ -1,19 +1,22 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
+  main: {
+    backgroundColor: "black",
+    height: "100vh"
+  },
   palette: {
     primary: {
-      main: "#6d696a" //dim gray
+      main: "#6d696a", //dim gray
     },
     secondary: {
-      main: "#a2a7a5" //quick silver
+      main: "#a2a7a5", //quick silver
     },
     tertiary: {
-      main: '#dae2df', //gainsboro - light green-gray,
-      secondary: "#e2dadb" //gainsboro - mauvey-pink
+      main: "#e2dadb", //gainsboro - light green-gray,
     },
     error: {
-      main: "#db1634", 
+      main: "#db1634",
     },
     info: {
       main: "#594157", //eggplant
@@ -42,31 +45,37 @@ const theme = createMuiTheme({
   },
   buttons: {
     tile: {
-      backgroundColor: '#fff',
-      border: '0.2rem solid grey',
-      borderRadius: '1.5rem',
+      backgroundColor: "#fff",
+      border: "0.2rem solid grey",
       fontWeight: 300,
-      color: '#594157',
-      textAlign: 'center',
-      height: '2rem',
-      width: '75%'
+      color: "#594157",
+      textAlign: "center",
+      height: "2rem",
+      width: "75%",
     },
-    menu:{
-      color: '#bee7e8',
-      backgroundColor: '#726da8',
+    menu: {
+      color: "#bee7e8",
+      backgroundColor: "#726da8",
       fontFamily: "Lato",
-      '&hover': {
-        color: '#726da8'
-      }
-    }
+      "&hover": {
+        color: "#726da8",
+      },
+    },
   },
   links: {
     plainText: {
-      textDecoration: 'none',
-      color: '#594157',
-      margin: '1rem'
-    }
-  }
+      textDecoration: "none",
+      color: "#594157",
+      margin: "1rem",
+      '&:hover': "cursor: pointer"
+    },
+  },
+  card: {
+    borderTop: "33px solid #20c4cc",
+    margin: "1rem",
+    height: "7rem",
+    fontSize: "1.5rem"
+  },
 });
 
 export default theme;
