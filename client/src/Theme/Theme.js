@@ -6,6 +6,7 @@ const theme = createMuiTheme({
     height: "100vh"
   },
   palette: {
+    highlight: "#20c4cc",
     primary: {
       main: "#6d696a", //dim gray
     },
@@ -71,8 +72,7 @@ const theme = createMuiTheme({
     },
   },
   card: {
-    borderTop: "33px solid #20c4cc",
-    margin: "1rem",
+    margin: "2rem",
     height: "7rem",
     fontSize: "1.5rem"
   },
