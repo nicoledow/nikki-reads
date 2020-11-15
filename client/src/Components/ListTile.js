@@ -3,14 +3,15 @@ import { Grid, makeStyles } from "@material-ui/core";
 import Theme from "../Theme/Theme";
 
 export default function ListTile(props) {
-  const listName = props.list.list_name_encoded;
-
-  console.log("list", props.list);
+  const listName = props.list.display_name;
+  const isSelected = props.selected;
 
   const handleClick = e => {
-    e.target.parentElement.querySelector('div').className = classes.selectedCardHead;
+    props.selectList(prevList => {
+      return listName;
+    })
   };
-
+  
   const useStyles = makeStyles({
     cardStyle: {
       ...Theme.card,
@@ -35,11 +36,10 @@ export default function ListTile(props) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={6} md={3} className={classes.cardStyle} onClick={e => handleClick(e)}>
-      {/* <div style={{height: "2rem", backgroundColor: Theme.palette.highlight}}/> */}
-      <div className={classes.unselectedCardHead}/>
-      <h3 className={classes.linkStyle}>
-        {props.list.list_name}
+    <Grid item xs={12} sm={6} md={3} className={classes.cardStyle}>
+      <div className={isSelected ? classes.selectedCardHead : classes.unselectedCardHead}/>
+      <h3 className={classes.linkStyle} onClick={e => handleClick(e)}>
+        {listName}
       </h3>
     </Grid>
   );
