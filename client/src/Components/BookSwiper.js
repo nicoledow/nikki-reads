@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Typography, makeStyles, Button, Grid } from "@material-ui/core";
+import { Typography, makeStyles, Button, Grid, Container } from "@material-ui/core";
 import FinishedSwipingMessage from './FinishedSwipingMessage';
 
 const BookSwiper = (props) => {
@@ -80,40 +80,7 @@ const BookSwiper = (props) => {
 
   if (currentBook) {
     return (
-      <Grid container>
-        <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          <img
-            src={currentBook.book_image}
-            height={currentBook.book_image_height}
-            width={currentBook.book_image_width}
-          />
-        </Grid>
-        <Grid item xs={12} sm={8} md={5}>
-          <div>
-            <Typography variant="h2">{currentBook.title}</Typography>
-            <Typography variant="p">{currentBook.description}</Typography>
-            <br />
-            <Button
-              color="primary"
-              size="medium"
-              variant="outlined"
-              onClick={() => likeBook(false)}
-              className={classes.btnStyle}
-            >
-              Dislike
-            </Button>
-            <Button
-              color="primary"
-              size="medium"
-              variant="outlined"
-              onClick={() => likeBook(true)}
-              className={classes.btnStyle}
-            >
-              Like
-            </Button>
-          </div>
-        </Grid>
-      </Grid>
+      <div style={{color: '#fff'}}>Current book</div>
     );
   } else {
     return <FinishedSwipingMessage />

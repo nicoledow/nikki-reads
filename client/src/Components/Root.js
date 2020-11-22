@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ReadingLogContainer from '../Containers/ReadingLogContainer';
 import ExplorePage from '../Containers/ExplorePage';
 import BookSwiperContainer from '../Containers/BookSwiperContainer';
-import LoginForm from './LoginForm';
+import LoginForm from './auth/LoginForm';
 import UserLinks from './UserLinks';
 import Header from './Header';
 import MainMenu from './MainMenu';

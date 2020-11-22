@@ -1,9 +1,12 @@
-const mainReducer = (state = {
-    isAuth: false,
-  }, action) => {
+const INITIAL_STATE = {
+  isAuth: false,
+  token: null
+}
+
+const mainReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "LOG_IN_USER":
-      return { ...state, isLoggedIn: true, userId: action.userId };
+      return { ...state, userId: action.payload};
     case "LOG_OUT_USER":
       return { ...state, isLoggedIn: false };
     default:

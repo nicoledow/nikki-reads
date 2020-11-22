@@ -4,20 +4,28 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { ThemeProvider } from "@material-ui/core";
+import { BrowserRouter, Route } from "react-router-dom";
+
 import mainReducer from "./reducers/main";
-import { ThemeProvider } from '@material-ui/core';
-import theme from './Theme/Theme';
+import SignUpLoginMenu from "./Components/auth/SignUpLoginMenu";
+import LoginContainer from './Components/auth/LoginContainer';
+import theme from "./Theme/Theme";
 
-
-const store = createStore(mainReducer);
+const store = createStore(mainReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <BrowserRouter>
+          <App>
+            <Route path="/" exact component={SignUpLoginMenu} />
+            <Route path="/login" exact component={LoginContainer} />
+          </App>
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

@@ -1,9 +1,3 @@
-const logInUser = (userId = null, email = null, password = null) => {
-    if (userId) {
-        return (dispatch) => {
-            dispatch({ type: 'LOG_IN_USER', userId: userId })
-        }
-    }
-};
-
-module.exports = logInUser;
+export default function logInUser(data) {
+    return (dispatch) => dispatch({ type: 'LOG_IN_USER', payload: data.userId });
+}
