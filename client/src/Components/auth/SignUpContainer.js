@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
 
 import logInUser from '../../actions/logInUser';
 
-class LoginContainer extends React.Component {
+class SignUpContainer extends React.Component {
 
     setAuth = (data) => {
         this.props.setUserLoggedIn(data);
     }
 
     render() {
-        return <LoginForm setAuth={this.setAuth}/>
+        return <SignUpForm setAuth={this.setAuth}/>
     }
 }
 
@@ -22,4 +22,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginContainer);
+export default connect(null, mapDispatchToProps)(SignUpContainer);

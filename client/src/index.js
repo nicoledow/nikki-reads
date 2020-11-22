@@ -12,6 +12,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import mainReducer from "./reducers/main";
 import SignUpLoginMenu from "./Components/auth/SignUpLoginMenu";
 import LoginContainer from './Components/auth/LoginContainer';
+import SignUpContainer from './Components/auth/SignUpContainer';
 import theme from "./Theme/Theme";
 
 const store = createStore(mainReducer, applyMiddleware(thunk));
@@ -24,6 +25,7 @@ ReactDOM.render(
           <App>
             <Route path="/" exact component={SignUpLoginMenu} />
             <Route path="/login" exact component={LoginContainer} />
+            <Route path="/signup" exact component={SignUpContainer}/>
           </App>
         </BrowserRouter>
       </ThemeProvider>
