@@ -9,6 +9,7 @@ class SignUpContainer extends React.Component {
 
     setAuth = (data) => {
         this.props.setUserLoggedIn(data);
+        this.props.history.push('/explore');
     }
 
     render() {

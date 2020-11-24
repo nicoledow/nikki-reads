@@ -1,8 +1,10 @@
 import React from 'react';
 import { Grid, Container, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import Theme from '../../Theme/Theme';
+import requireAuth from './requireAuth';
 
 function SignUpLoginMenu() {
 
@@ -25,4 +27,4 @@ function SignUpLoginMenu() {
     )
 }
 
-export default SignUpLoginMenu;
+export default connect(requireAuth)(SignUpLoginMenu);

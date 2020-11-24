@@ -10,7 +10,7 @@ function BookListGrid(props) {
   return (
     <Container>
       <Grid container spacing={5}>
-        {props.lists.slice(0, 3).map((list) => {
+        {props.lists.map((list) => {
           return (
             <ListTile
               key={list.list_name_encoded}

@@ -13,19 +13,23 @@ import mainReducer from "./reducers/main";
 import SignUpLoginMenu from "./Components/auth/SignUpLoginMenu";
 import LoginContainer from './Components/auth/LoginContainer';
 import SignUpContainer from './Components/auth/SignUpContainer';
-import theme from "./Theme/Theme";
+import Theme from "./Theme/Theme";
+import ExplorePage from './Containers/ExplorePage';
+import NYTListsMenu from './Components/NYTListsMenu';
 
 const store = createStore(mainReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme}>
         <BrowserRouter>
           <App>
-            <Route path="/" exact component={SignUpLoginMenu} />
+            <Route path="/" exact component={SignUpLoginMenu}/>
             <Route path="/login" exact component={LoginContainer} />
             <Route path="/signup" exact component={SignUpContainer}/>
+            <Route path="/explore" exact component={ExplorePage}/>
+            <Route path="/lists" exact component={NYTListsMenu}/>
           </App>
         </BrowserRouter>
       </ThemeProvider>

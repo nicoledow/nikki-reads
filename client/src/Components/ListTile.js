@@ -4,7 +4,6 @@ import Theme from "../Theme/Theme";
 import BookSwiper from "./BookSwiper";
 
 export default function ListTile(props) {
-  console.log('tile props', props);
   const listName = props.list.display_name;
   const isSelected = props.selected;
 

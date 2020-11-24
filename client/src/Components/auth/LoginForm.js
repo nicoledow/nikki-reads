@@ -7,8 +7,6 @@ const LoginForm = props => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    const inputs = [...e.target.querySelectorAll("input")];
   
     const userData = {
       email: e.target.querySelector('input[name="email"]').value,

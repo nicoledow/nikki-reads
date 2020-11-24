@@ -6,9 +6,9 @@ const INITIAL_STATE = {
 const mainReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "LOG_IN_USER":
-      return { ...state, userId: action.payload};
+      return { ...state, userId: action.payload, isAuth: true};
     case "LOG_OUT_USER":
-      return { ...state, isLoggedIn: false };
+      return { ...state, isAuth: false };
     default:
       return state;
   }
