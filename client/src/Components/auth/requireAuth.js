@@ -13,7 +13,7 @@ export default authRequiredChildComponent => {
         }
 
         shouldNavigateAway = () => {
-            if (!this.props.isAuth) {
+            if (!localStorage.userId || !localStorage.token) {
                 this.props.history.push('/');
             }
         } 

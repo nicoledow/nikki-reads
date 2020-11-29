@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Theme from '../../Theme/Theme';
 import requireAuth from './requireAuth';
+import MainMenu from '../MainMenu';
 
 function SignUpLoginMenu() {
 
@@ -12,6 +13,10 @@ function SignUpLoginMenu() {
         btn: Theme.buttons.menu
       });
       const classes = useStyles();
+
+    if (localStorage.token) {
+        return <MainMenu />;
+    }
 
     return (
         <Container>

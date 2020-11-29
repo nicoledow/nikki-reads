@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Typography, makeStyles, Button, Grid, Container } from "@material-ui/core";
+import { Ouroboro } from "react-spinners-css";
+
 import FinishedSwipingMessage from './FinishedSwipingMessage';
+import Theme from '../Theme/Theme';
 
 const BookSwiper = (props) => {
   const list = props.list;
   let [books, setBooks] = useState([]);
   let [currentBook, setCurrentBook] = useState(null);
+  let [listCompleted, completeList] = useState(false);
 
   const fetchNYTBooks = () => {
     const url = `${process.env.REACT_APP_NYT_BOOKS_API_BASE}/lists/current/${list.list_name_encoded}?api-key=${process.env.REACT_APP_NYT_API_KEY}`;
@@ -82,8 +86,12 @@ const BookSwiper = (props) => {
     return (
       <div style={{color: '#fff'}}>Current book</div>
     );
+  } else if (!currentBook && !listCompleted) {
+    return (
+      <Ouroboro color={Theme.palette.tertiary.main} size={50} style={{}} className={""} />
+    )
   } else {
-    return <FinishedSwipingMessage />
+    return <FinishedSwipingMessage />;
   }
 };
 

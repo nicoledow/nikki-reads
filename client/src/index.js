@@ -11,8 +11,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import mainReducer from "./reducers/main";
 import SignUpLoginMenu from "./Components/auth/SignUpLoginMenu";
-import LoginContainer from './Components/auth/LoginContainer';
-import SignUpContainer from './Components/auth/SignUpContainer';
+import LoginForm from './Components/auth/LoginForm';
+import SignUpForm from './Components/auth/SignUpForm';
 import Theme from "./Theme/Theme";
 import ExplorePage from './Containers/ExplorePage';
 import NYTListsMenu from './Components/NYTListsMenu';
@@ -26,8 +26,8 @@ ReactDOM.render(
         <BrowserRouter>
           <App>
             <Route path="/" exact component={SignUpLoginMenu}/>
-            <Route path="/login" exact component={LoginContainer} />
-            <Route path="/signup" exact component={SignUpContainer}/>
+            <Route path="/login" exact component={LoginForm} />
+            <Route path="/signup" exact component={SignUpForm}/>
             <Route path="/explore" exact component={ExplorePage}/>
             <Route path="/lists" exact component={NYTListsMenu}/>
           </App>

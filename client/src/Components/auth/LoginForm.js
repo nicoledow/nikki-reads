@@ -2,6 +2,7 @@ import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 
 import Theme from "../../Theme/Theme";
+import loginUser from '../../actions/logInUser';
 
 const LoginForm = props => {
 
@@ -23,9 +24,9 @@ const LoginForm = props => {
     })
       .then((resp) => resp.json())
       .then((result) => {
-        console.log("log in result", result);
         if (result.userValidated) {
-          props.setAuth(result);
+          loginUser(result);
+          props.history.push('/explore');
         } else {
           alert("Email or password is incorrect.");
         }

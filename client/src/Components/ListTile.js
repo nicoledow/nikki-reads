@@ -1,4 +1,6 @@
 import React from "react";
+import { Redirect } from 'react-router-dom';
+
 import { Grid, makeStyles } from "@material-ui/core";
 import Theme from "../Theme/Theme";
 import BookSwiper from "./BookSwiper";
@@ -7,10 +9,9 @@ export default function ListTile(props) {
   const listName = props.list.display_name;
   const isSelected = props.selected;
 
-  const handleClick = (e) => {
-    props.selectList((prevList) => {
-      return listName;
-    });
+  const handleClick = (e) => {  
+    const listUrl = `/lists/${listName}`;
+    return <Redirect to={listUrl} />;
   };
 
   const useStyles = makeStyles({

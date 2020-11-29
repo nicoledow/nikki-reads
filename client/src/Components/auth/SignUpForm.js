@@ -2,6 +2,7 @@ import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 
 import Theme from "../../Theme/Theme";
+import logInUser from "../../actions/logInUser";
 
 const SignUpForm = (props) => {
   const validateUserInput = (userData) => {
@@ -49,9 +50,9 @@ const SignUpForm = (props) => {
     })
       .then((resp) => resp.json())
       .then((result) => {
-        console.log("sign up result", result);
         if (result.status === 201) {
-            props.setAuth(result);
+            logInUser(result);
+            props.history.push('/explore');
         } else {
             const messageText = result.message;
             alert(messageText);
