@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 
 import { Grid, makeStyles } from "@material-ui/core";
 import Theme from "../Theme/Theme";
-import BookSwiper from "./BookSwiper";
+import BooksContainer from "../Containers/BooksContainer";
 
-export default function ListTile(props) {
+const ListTile = props => {
   const listName = props.list.display_name;
-  const isSelected = props.selected;
+  const [showBooks, selectList] = useState(false);
 
-  const handleClick = (e) => {  
-    const listUrl = `/lists/${listName}`;
-    return <Redirect to={listUrl} />;
+  const handleClick = () => {
+    selectList(true);
   };
 
   const useStyles = makeStyles({
@@ -37,18 +36,20 @@ export default function ListTile(props) {
   });
   const classes = useStyles();
 
-  if (isSelected) {
+  if (showBooks) {
     return (
-      <BookSwiper list={props.list}/>
+      <BooksContainer list={props.list}/>
     )
   } else {
     return (
       <Grid item xs={12} sm={6} md={3} className={classes.cardStyle}>
-        <div className={isSelected ? classes.selectedCardHead : classes.unselectedCardHead}/>
-        <h3 className={classes.linkStyle} onClick={(e) => handleClick(e)}>
+        <div className={classes.unselectedCardHead}/>
+        <h3 className={classes.linkStyle} onClick={handleClick}>
           {listName}
         </h3>
       </Grid>
     );
   }
 }
+
+export default ListTile;
