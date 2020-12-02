@@ -17,8 +17,11 @@ const BookSwiper = (props) => {
       buyURL: currentBook.buy_links[0].url,
       author: currentBook.author,
       imageUrl: currentBook.book_image,
-      isbn10: currentBook.isbns.isbn10,
-      nytBookURI: currentBook.book_uri
+      isbn10: currentBook.isbns[0].isbn10,
+      nytBookURI: currentBook.book_uri,
+      user: {
+        id: localStorage.userId
+      }
     };
 
     fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/likedBooks`, {
@@ -26,8 +29,12 @@ const BookSwiper = (props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bookInfo)
     })
-    .then(resp => resp.json())
+    .then(resp => {
+      console.log('in resp step');
+      return resp.json();
+    })
     .then(result => {
+      console.log('in result step');
       console.log(result);
     })
     .catch(err => {
