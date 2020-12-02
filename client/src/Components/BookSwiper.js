@@ -10,8 +10,30 @@ const BookSwiper = (props) => {
   const [currentBookIdx, updateBookIdx] = useState(0);
   const [currentBook, setCurrentBook] = useState(books[0]);
 
+
   const likeBook = () => {
-    console.log("like book");
+    const bookInfo = {
+      title: currentBook.title,
+      buyURL: currentBook.buy_links[0].url,
+      author: currentBook.author,
+      imageUrl: currentBook.book_image,
+      isbn10: currentBook.isbns.isbn10,
+      nytBookURI: currentBook.book_uri
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/likedBooks`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookInfo)
+    })
+    .then(resp => resp.json())
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log('err', err);
+      alert("We\'re sorry, an error occurred. Please try again later.");
+    })
     getNextBook();
   };
 

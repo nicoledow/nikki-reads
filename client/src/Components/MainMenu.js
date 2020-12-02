@@ -6,7 +6,7 @@ const MainNav = () => {
  
   const features = [
     { title: "My Logs", link: "/logs" },
-    { title: "Explore", link: "/explore" },
+    { title: "Explore", link: "/lists" },
   ];
 
   const menuBoxStyles = {

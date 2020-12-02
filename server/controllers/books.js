@@ -1,24 +1,17 @@
+const _ = require('lodash/string');
+
 const Book = require('../models/book');
 const User = require('../models/user');
 
-exports.addBook = (req, res, next) => {
-
-    function formatTitle(title) {
-        const lowerCaseTitle = title.toLowerCase();
-        const words = lowerCaseTitle.split(' ');
-        const upperCaseWords = words.map(w => {
-            return w.charAt(0).toUpperCase() + w.slice(1);
-        });
-        
-        return upperCaseWords.join(' ');
-    };
+exports.likeBook = (req, res, next) => {
 
     const book = new Book({
-        title: formatTitle(req.body.title),
+        title: _.capitalize(req.body.title),
         buyURL: req.body.buyURL,
         // author: author,
         imageUrl: req.body.imageUrl,
-        nytBookURI: req.body.bookURI
+        nytBookURI: req.body.bookURI,
+        isbn10: req.body.isbn10
     });
     
     book.save()

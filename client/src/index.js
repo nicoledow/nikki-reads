@@ -14,7 +14,6 @@ import SignUpLoginMenu from "./Components/auth/SignUpLoginMenu";
 import LoginForm from './Components/auth/LoginForm';
 import SignUpForm from './Components/auth/SignUpForm';
 import Theme from "./Theme/Theme";
-import ExplorePage from './Containers/ExplorePage';
 import NYTListsMenu from './Components/NYTListsMenu';
 
 const store = createStore(mainReducer, applyMiddleware(thunk));
@@ -28,7 +27,6 @@ ReactDOM.render(
             <Route path="/" exact component={SignUpLoginMenu}/>
             <Route path="/login" exact component={LoginForm} />
             <Route path="/signup" exact component={SignUpForm}/>
-            <Route path="/explore" exact component={ExplorePage}/>
             <Route path="/lists" exact component={NYTListsMenu}/>
           </App>
         </BrowserRouter>
