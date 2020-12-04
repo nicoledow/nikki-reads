@@ -33,8 +33,7 @@ const bookSchema = new Schema({
     required: true,
   },
   nytBookURI: {
-    type: String,
-    required: true,
+    type: String
   },
   tags: [{ type: String }],
   userIds: [{ type: String }]
