@@ -9,6 +9,8 @@ import thunk from "redux-thunk";
 import { ThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route } from "react-router-dom";
 
+import ProtectedRoute from './Components/auth/ProtectedRoute';
+
 import mainReducer from "./reducers/main";
 import SignUpLoginMenu from "./Components/auth/SignUpLoginMenu";
 import LoginForm from './Components/auth/LoginForm';
@@ -27,7 +29,7 @@ ReactDOM.render(
             <Route path="/" exact component={SignUpLoginMenu}/>
             <Route path="/login" exact component={LoginForm} />
             <Route path="/signup" exact component={SignUpForm}/>
-            <Route path="/lists" exact component={NYTListsMenu}/>
+            <ProtectedRoute path="/lists" exact component={NYTListsMenu}/>
           </App>
         </BrowserRouter>
       </ThemeProvider>
