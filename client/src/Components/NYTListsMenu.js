@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BookListGrid from "./BookListGrid";
 import { Ouroboro } from "react-spinners-css";
-import { Container } from "@material-ui/core";
 import Theme from "../Theme/Theme";
 
 const nytBaseUrl = process.env.REACT_APP_NYT_BOOKS_API_BASE;

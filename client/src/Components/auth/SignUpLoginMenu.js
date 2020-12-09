@@ -1,10 +1,8 @@
 import React from 'react';
 import { Grid, Container, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
 
 import Theme from '../../Theme/Theme';
-import requireAuth from './requireAuth';
 import MainMenu from '../MainMenu';
 
 function SignUpLoginMenu() {
@@ -14,7 +12,7 @@ function SignUpLoginMenu() {
       });
       const classes = useStyles();
 
-    if (localStorage.token) {
+    if (localStorage.userId) {
         return <MainMenu />;
     }
 
@@ -32,4 +30,4 @@ function SignUpLoginMenu() {
     )
 }
 
-export default connect(requireAuth)(SignUpLoginMenu);
+export default SignUpLoginMenu;

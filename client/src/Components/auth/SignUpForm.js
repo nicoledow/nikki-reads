@@ -52,7 +52,7 @@ const SignUpForm = (props) => {
       .then((result) => {
         if (result.status === 201) {
             logInUser(result);
-            props.history.push('/explore');
+            props.history.push('/lists');
         } else {
             const messageText = result.message;
             alert(messageText);

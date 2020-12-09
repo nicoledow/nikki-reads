@@ -26,7 +26,7 @@ const LoginForm = props => {
       .then((result) => {
         if (result.userValidated) {
           loginUser(result);
-          props.history.push('/explore');
+          props.history.push('/lists');
         } else {
           alert("Email or password is incorrect.");
         }
