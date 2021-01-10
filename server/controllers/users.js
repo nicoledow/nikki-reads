@@ -6,6 +6,7 @@ exports.createUser = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const name = req.body.name;
+  const author = req.body.userType === 'author';
   let user;
   
   const existingUser = await User.findOne({ email: email });
@@ -17,9 +18,9 @@ exports.createUser = async (req, res, next) => {
         message: "A user with this email is already registered.",
       });
   }
-
+  console.log('req body', req.body);
   bcrypt.hash(password, 12).then(hashedPW => {
-       user = new User({ password: hashedPW, name: name, email: email});
+       user = new User({ password: hashedPW, name, email, author});
        console.log('created user, going to save')
       return user.save();
   })

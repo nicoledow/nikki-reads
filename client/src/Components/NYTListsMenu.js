@@ -21,11 +21,9 @@ const NYTListsMenu = () => {
       })
       .then((data) => {
         console.log("data from fetch", data);
-        const lists = data.results;
-        setTimeout(() => {
-          setLists(lists);
-          displayLists(true);
-        }, 2000);
+        // const lists = data.results;
+        setLists(data.results);
+        displayLists(true);
       })
       .catch((err) => console.log("err", err));
   };

@@ -5,11 +5,13 @@ const ProtectedRoute = props => {
     const Component = props.component;
     const isAuthenticated = localStorage.userId;
 
-    return isAuthenticated ? (
-        <Component />
-    ) : (
-        <Redirect to="/login"/>
-    )
+    return <Component/>
+
+    // return isAuthenticated ? (
+    //     <Component />
+    // ) : (
+    //     <Redirect to="/login"/>
+    // )
 };
 
 export default ProtectedRoute;
