@@ -29,7 +29,7 @@ ReactDOM.render(
             <Route path="/" exact component={SignUpLoginMenu}/>
             <Route path="/login" exact component={LoginForm} />
             <Route path="/signup" exact component={SignUpForm}/>
-            <ProtectedRoute path="/lists" exact component={NYTListsMenu}/>
+            <Route path="/lists" exact component={NYTListsMenu}/>
           </App>
         </BrowserRouter>
       </ThemeProvider>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, makeStyles } from "@material-ui/core";
 
-import BooksContainer from "../Containers/BooksContainer";
 import FinishedSwipingMessage from "./FinishedSwipingMessage";
+import Theme from '../Theme/Theme';
 
 const BookSwiper = (props) => {
   console.log("book swiper props", props);
@@ -10,6 +10,7 @@ const BookSwiper = (props) => {
   const [currentBookIdx, updateBookIdx] = useState(0);
   const [currentBook, setCurrentBook] = useState(books[0]);
 
+  const isAuth = localStorage.userId ? true : false;
 
   const likeBook = () => {
     const bookInfo = {
@@ -60,6 +61,8 @@ const BookSwiper = (props) => {
     }
   };
 
+
+
   if (!currentBook) {
       return <FinishedSwipingMessage />
   }
@@ -77,8 +80,8 @@ const BookSwiper = (props) => {
           width={currentBook.book_image_width}
         />
         <p>{currentBook.description}</p>
-        <Button onClick={skipBook}>Dislike</Button>
-        <Button onClick={likeBook}>Like</Button>
+        <Button onClick={skipBook} disabled={!isAuth}>Dislike</Button>
+        <Button onClick={likeBook} disabled={!isAuth}>Like</Button>
       </Grid>
     </Grid>
   );
